@@ -68,6 +68,27 @@
         })
     }
 
+    function updateData() {
+      let TestDataClass = ncmb.DataStore(db);
+      TestDataClass.fetch()
+        .then(function(results) {
+          let Circulation = parseInt($("#Circulation").val());
+          results.set("Circulation", Circulation);
+          return results.update();
+        })
+        .then(function(results) {
+          $("#display").removeClass();
+          $("#display").addClass("bg-success");
+          $("#display").html("update success");
+        })
+        .catch(function(error) {
+          $("#display").removeClass();
+          $("#display").addClass("bg-warning");
+          $("#display").html("update fail:" + JSON.stringify(error));
+        })
+
+    }
+
     function showResults(results) {
       // テーブルのヘッダを生成
       let msg = "<table><tr><th>name</th><th>author</th><th>Circulation</th></tr>";
@@ -102,7 +123,8 @@
     <button class="btn" onclick="SortData()">Sort</button><br>
     <button class="btn" onclick="searchCirculationLT()">Circulation &lt</button>
     <button class="btn" onclick="searchCirculation()">Circulation</button>
-    <button class="btn" onclick="searchCirculationGT()">Circulation &gt</button>
+    <button class="btn" onclick="searchCirculationGT()">Circulation &gt</button><br>
+    <button class="btn" onclick="updateData()">Update</button>
   </div>
   <div id="message">message area</div>
 </body>
