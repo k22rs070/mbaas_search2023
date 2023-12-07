@@ -32,48 +32,30 @@
                 })
         }
 
-        function sortData() {
-            UTdata.order(key, true).fetchAll()
-                .then(function(results) {
-                    let msg = "";
-                    for (let i = 0; i < results.length; i++) {
-                        msg += results[i].get(key) + "<br>";
-                    }
-                    $("#display").removeClass();
-                    $("#display").addClass("text-light");
-                    $("#display").addClass("bg-primary");
-                    $("#display").html(msg);
-                })
-                .catch(function(error) {
-                    $("#display").removeClass();
-                    $("#display").addClass("bg-warning");
-                    $("#display").html("delete fail:" + JSON.stringify(error));
-                })
-        }
+        
 
-
-        function searchLevel() {
-            let level = parseInt($("#level").val());
+        function searchCirculation() {
+            let Circulation = parseInt($("#Circulation").val());
             let TestDataClass = ncmb.DataStore(db);
-            TestDataClass.equalTo("level", level).fetchAll()
+            TestDataClass.equalTo("Circulation",Circulation).fetchAll()
                 .then(function(results) {
                     showResults(results);
                 })
         }
 
-        function searchLevelLT() {
-            let level = parseInt($("#level").val());
+        function searchCirculationLT() {
+            let Circulation = parseInt($("#Circulation").val());
             let TestDataClass = ncmb.DataStore(db);
-            TestDataClass.lessThan("level", level).fetchAll()
+            TestDataClass.lessThan("Circulation", Circulation).fetchAll()
                 .then(function(results) {
                     showResults(results);
                 })
         }
 
-        function searchLevelGT() {
-            let level = parseInt($("#level").val());
+        function searchCirculationGT() {
+            let Circulation = parseInt($("#Circulation").val());
             let TestDataClass = ncmb.DataStore(db);
-            TestDataClass.greaterThan("level", level).fetchAll()
+            TestDataClass.greaterThan("Circulation",Circulation).fetchAll()
                 .then(function(results) {
                     showResults(results);
                 })
@@ -81,13 +63,13 @@
 
         function showResults(results) {
             // テーブルのヘッダを生成
-            let msg = "<table><tr><th>name</th><th>author</th><th>number</th></tr>";
+            let msg = "<table><tr><th>name</th><th>author</th><th>Circulation</th></tr>";
             for (let i = 0; i < results.length; i++) {
                 // 各データを収めた表の列を生成
                 msg += "<tr>";
                 msg += "<td>" + results[i].name + "</td>";
                 msg += "<td class='num'>" + results[i].author + "</td>";
-                msg += "<td class='num'>" + results[i].number + "</td>";
+                msg += "<td class='num'>" + results[i].Circulation + "</td>";
                 msg += "</tr>";
             }
             // テーブルのテイラを生成
@@ -104,16 +86,16 @@
         <input id="name" type="text" placeholder="comics name">
     </div>
     <div>
-        <label for="Circulation">level:</label>
+        <label for="Circulation">Circulation:</label>
         <input id="Circulation" type="number" placeholder="Circulation">
     </div>
     <div id="button">
         <button class="btn" onclick="fetchAll()">Fetch All</button>
         <button class="btn" onclick="searchName()">Name</button>
         <button class="btn"onclick="SortData()">Sort</button><br>
-        <button class="btn" onclick="searchLevelLT()">Level &lt</button>
-        <button class="btn" onclick="searchLevel()">Level</button>
-        <button class="btn" onclick="searchLevelGT()">Level &gt</button>
+        <button class="btn" onclick="searchCirculationLT()">Circulation &lt</button>
+        <button class="btn" onclick="searchCirculation()">Circulation</button>
+        <button class="btn" onclick="searchCirculationGT()">Circulation &gt</button>
     </div>
     <div id="message">message area</div>
 </body>
